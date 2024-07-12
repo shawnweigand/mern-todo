@@ -18,6 +18,9 @@ const App = () => {
 
   return (
     <div>
+      <h1 className="text-3xl font-bold underline">
+        Hello world!
+      </h1>
       <h1>MERN Stack Todo App</h1>
       <TodoForm onAdd={addTodo} />
       <ul>
