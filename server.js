@@ -19,6 +19,23 @@ app.get('/todos', async (req, res) => {
     res.json(todos);
   });
 
+// Create a new todo
+app.post('/todos', async (req, res) => {
+    const newTodo = new Todo(req.body);
+    await newTodo.save();
+    res.json(newTodo);
+  });
+  // Update an existing todo
+  app.put('/todos/:id', async (req, res) => {
+    const updatedTodo = await Todo.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.json(updatedTodo);
+  });
+  // Delete a todo
+  app.delete('/todos/:id', async (req, res) => {
+    await Todo.findByIdAndRemove(req.params.id);
+    res.json({ message: 'Todo deleted successfully' });
+  });
+
 const todoSchema = new mongoose.Schema({
     task: String,
     completed: Boolean,
