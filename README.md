@@ -9,3 +9,5 @@ On Step 7
 Run on http://localhost:3000/
 
 npm run start
+
+Mongo docker: https://www.mongodb.com/resources/products/compatibilities/docker
