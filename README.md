@@ -1,1 +1,1 @@
-MERN setup: https://www.mongodb.com/resources/languages/mern-stack-tutorial#setting-up-the-project
+MERN setup: https://medium.com/@sriram.se21/step-by-step-tutorial-building-a-mern-stack-application-from-scratch-d281010715e4
