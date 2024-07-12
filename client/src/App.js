@@ -5,16 +5,17 @@ import TodoForm from './TodoForm';
 const App = () => {
 
   const [todos, setTodos] = useState([]);
+
+  const addTodo = (newTodo) => {
+    setTodos([...todos, newTodo]);
+  };
+
   useEffect(() => {
     // Fetch data from the Express server
     axios.get('http://localhost:5000/todos')
       .then(response => setTodos(response.data))
       .catch(error => console.error(error));
   }, []);
-
-  const addTodo = (newTodo) => {
-    setTodos([...todos, newTodo]);
-  };
 
   return (
     <div>
