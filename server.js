@@ -13,6 +13,12 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
+// Add this to server.js
+app.get('/todos', async (req, res) => {
+    const todos = await Todo.find();
+    res.json(todos);
+  });
+
 const todoSchema = new mongoose.Schema({
     task: String,
     completed: Boolean,
