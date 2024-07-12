@@ -7,3 +7,5 @@ Stop MongoDB: brew services stop mongodb-community@7.0
 On Step 7
 
 Run on http://localhost:3000/
+
+npm run start
