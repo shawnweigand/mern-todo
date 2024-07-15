@@ -4,6 +4,7 @@ const { Todo } = require('../database/Todo');
 
 router.get('/', async (req, res) => {
     const todos = await Todo.find();
+    // res.json({"message": "Hello from the server!", "todos": todos});
     res.json(todos);
 });
 

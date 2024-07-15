@@ -10,6 +10,15 @@ services:
       - portfolio-network
     volumes:
       - client-volume:/usr/src/app/src
+  server:
+    container_name: server
+    build: server
+    ports:
+      - "5000:5000"
+    networks:
+      - portfolio-network
+    # volumes:
+    #   - server-volume:/usr/src/app/src
   mongodb:
     container_name: mongodb
     image: mongodb/mongodb-community-server:6.0-ubi8
@@ -28,4 +37,10 @@ volumes:
     driver_opts:
       type: none
       device: ./client/src
+      o: bind
+  server-volume:
+    driver: local
+    driver_opts:
+      type: none
+      device: ./server/src
       o: bind
