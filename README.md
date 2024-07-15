@@ -11,3 +11,5 @@ Run on http://localhost:3000/
 npm run start
 
 Mongo docker: https://www.mongodb.com/resources/products/compatibilities/docker
+
+Tailwind on MERN: https://blog.100jsprojects.com/post/crafting-a-mern-stack-application-with-tailwind-css-and-typescript--a-step-by-step-guide
