@@ -17,8 +17,8 @@ services:
       - "5000:5000"
     networks:
       - portfolio-network
-    # volumes:
-    #   - server-volume:/usr/src/app/src
+    volumes:
+      - server-volume:/usr/src/app/src
   mongodb:
     container_name: mongodb
     image: mongodb/mongodb-community-server:6.0-ubi8
