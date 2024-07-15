@@ -6,6 +6,8 @@ To work locally:
 
 
 
+Dockerfiles: https://blog.nashtechglobal.com/how-to-containerize-a-mern-stack-application/
+
 MERN setup: https://medium.com/@sriram.se21/step-by-step-tutorial-building-a-mern-stack-application-from-scratch-d281010715e4
 
 Start MongoDB: brew services stop mongodb-community@7.0

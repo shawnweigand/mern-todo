@@ -1,8 +1,21 @@
 version: '3.8'  # You can adjust the version as per your Docker Engine version
 
 services:
+  client:
+    build: client
+    ports:
+      - "3000:3000"
+    networks:
+      - portfolio-network
+    # volumes:
+    #   - ./client:/app/client
   mongodb:
     container_name: mongodb
     image: mongodb/mongodb-community-server:6.0-ubi8
     ports:
       - "27017:27017"
+    networks:
+      - portfolio-network
+networks:
+  portfolio-network:
+    driver: bridge
