@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import { mongoose } from "../server";
 
 const todoSchema = new mongoose.Schema({
     task: String,

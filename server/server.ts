@@ -1,5 +1,5 @@
-const express = require('express');
-const mongoose = require('mongoose');
+var express = require('express');
+var mongoose = require('mongoose');
 const cors = require('cors');
 
 const app = express();
@@ -24,3 +24,8 @@ app.listen(PORT, () => {
 });
 
 app.use('/todos', todosRoute);
+
+export { 
+  express,
+  mongoose
+};
