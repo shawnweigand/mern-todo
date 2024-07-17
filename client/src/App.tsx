@@ -2,12 +2,19 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import TodoForm from './TodoForm';
 
+// Import this!
+type Todo = {
+  _id: string;
+  task: string;
+  completed: boolean;
+};  
+
 const App = () => {
 
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState<Todo[]>([]);
 
   const addTodo = (newTodo) => {
-    setTodos([...todos, newTodo]);
+    setTodos(todos.concat(newTodo));
   };
 
   useEffect(() => {

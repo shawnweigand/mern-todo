@@ -26,6 +26,5 @@ app.listen(PORT, () => {
 app.use('/todos', todosRoute);
 
 export { 
-  express,
-  mongoose
+  express
 };

@@ -1,11 +1,16 @@
-import { mongoose } from "../server";
+import { Schema, model } from "mongoose";
 
-const todoSchema = new mongoose.Schema({
+export type Todo = {
+    task: string;
+    completed: boolean;
+}
+
+const todoSchema = new Schema<Todo>({
     task: String,
     completed: Boolean,
 });
 
-const Todo = mongoose.model('Todo', todoSchema);
+const Todo = model('Todo', todoSchema);
 
 module.exports = {
     Todo
