@@ -1,5 +1,5 @@
-const express = require('express');
-const mongoose = require('mongoose');
+var express = require('express');
+var mongoose = require('mongoose');
 const cors = require('cors');
 
 const app = express();
@@ -12,7 +12,7 @@ app.use(express.json());
 
 // Connect to MongoDB
 mongoose.set("strictQuery", false);
-const mongoDB = "mongodb://mongodb:27017/mern-stack-db";
+const mongoDB = "mongodb://localhost:27017/mern-stack-db";
 main().catch((err) => console.log(err));
 async function main() {
   await mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -24,3 +24,7 @@ app.listen(PORT, () => {
 });
 
 app.use('/todos', todosRoute);
+
+export { 
+  express
+};
