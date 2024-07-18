@@ -14,7 +14,7 @@ const App = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
 
   const addTodo = (newTodo) => {
-    setTodos(todos.concat(newTodo));
+    setTodos([...todos, newTodo]);
   };
 
   useEffect(() => {
