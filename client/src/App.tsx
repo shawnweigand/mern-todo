@@ -13,7 +13,7 @@ const App = () => {
 
   const [todos, setTodos] = useState<Todo[]>([]);
 
-  const addTodo = (newTodo) => {
+  const addTodo = (newTodo: any) => {
     setTodos([...todos, newTodo]);
   };
 
