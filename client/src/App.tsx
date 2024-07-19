@@ -26,12 +26,12 @@ const App = () => {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold underline">
+      <h1 className="text-3xl font-bold underline italic">
         Hello world!
       </h1>
       <h1 className='text-red-500'>MERN Stack Todo App</h1>
       <TodoForm onAdd={addTodo} />
-      <ul>
+      <ul className='list-disc pl-5'>
         {todos.map(todo => (
           <li key={todo._id}>{todo.task}</li>
         ))}
