@@ -6,7 +6,8 @@ import { mongoose } from '../server.js';
 // }
 
 const todoSchema = mongoose.Schema({
-    task: String,
+    name: String,
+    description: String,
     completed: Boolean,
 });
 
