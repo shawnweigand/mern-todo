@@ -1,6 +1,7 @@
 import { CheckIcon, TrashIcon } from '@heroicons/react/24/outline'
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useForm } from 'react-hook-form';
 
 type Todo = {
   _id: string;
@@ -10,6 +11,14 @@ type Todo = {
 };  
 
 export default function TodoList() {
+
+    const { register, handleSubmit, formState: {errors} } = useForm();
+    const onSubmit = data => addTodo();
+    const onErrors = data => console.error(errors);
+
+    const validation = {
+        name: { required: "Name is required" }
+    };
 
     const [todos, setTodos] = useState<Todo[]>([]);
 
@@ -46,14 +55,17 @@ export default function TodoList() {
 
     return (
         <div>
-            <div className="relative mt-10 rounded-md flex flex-col items-center justify-center">
-                <input type="text" name="task" id="task" className="font-bold mb-5 mr-3 block w-1/2 rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Write task name here..." value={task.name} onChange={(e) => setTask({"name": e.target.value, "description": task.description})} />
-                <textarea id="description" name="description" className="mb-5 mr-3 block w-1/2 rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Write task description here..." value={task.description} onChange={(e) => setTask({"name": task.name, "description": e.target.value})} />
-                <button type="button" onClick={addTodo} className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            <form className="relative mt-10 rounded-md flex flex-col items-center justify-center" onSubmit={handleSubmit(onSubmit, onErrors)}>
+                <input {...register('name', validation.name)} className="font-bold mr-3 block w-1/2 rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Write task name here..." value={task.name} onChange={(e) => setTask({"name": e.target.value, "description": task.description})} />
+                <small className="mt-2 text-red-600">
+                    {errors?.name && `${errors?.name?.message}`}
+                </small>
+                <textarea {...register('description')} className="my-5 mr-3 block w-1/2 rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Write task description here..." value={task.description} onChange={(e) => setTask({"name": task.name, "description": e.target.value})} />
+                <button className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                     <CheckIcon aria-hidden="true" className="h-5 w-5 text-white" />
                     Add To-Do
-                </button>            
-            </div>
+                </button>    
+            </form>
             <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
                 <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
                 {todos.map((todo) => (
