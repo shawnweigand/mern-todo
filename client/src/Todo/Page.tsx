@@ -15,8 +15,8 @@ export default function TodoPage() {
             Track your tasks and check off your list
           </p>
           <p className="mt-6 text-lg leading-8 text-gray-600">
-            Quis tellus eget adipiscing convallis sit sit eget aliquet quis. Suspendisse eget egestas a elementum
-            pulvinar et feugiat blandit at. In mi viverra elit nunc.
+            Type your task name and description below and submit to add to your to-do list. 
+            After completing a task, check it off or delete it from your list for good.
           </p>
         </div>
         <TodoList />

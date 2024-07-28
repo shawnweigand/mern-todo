@@ -28,6 +28,15 @@ export default function TodoList() {
         }
     };
 
+    const removeTodo = async (id, e) => {
+        try {
+          const response = await axios.delete(`http://localhost:5000/todos/${id}`);
+          setTodos(todos.filter(todo => todo._id !== id));
+        } catch (error) {
+          console.error(error);
+        }
+    };
+
     useEffect(() => {
         // Fetch data from the Express server
         axios.get('http://localhost:5000/todos')
@@ -54,7 +63,7 @@ export default function TodoList() {
                             {todo.name}
                         </dt>
                         <dd className="mt-2 text-base leading-7 text-gray-600">{todo.description}</dd>
-                        <button className="absolute right-20 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-red-600">
+                        <button onClick={(e) => removeTodo(todo._id, e)} className="absolute right-20 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-red-600 hover:bg-red-500">
                             <TrashIcon aria-hidden="true" className="h-6 w-6 text-white" />
                         </button>
                     </div>
