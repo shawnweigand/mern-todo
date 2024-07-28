@@ -46,12 +46,14 @@ export default function TodoList() {
 
     return (
         <div>
-            <div className="relative mt-10 rounded-md flex items-center justify-center">
-                <input type="text" name="task" id="task" className="mr-3 block w-1/2 rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Write task here..." value={task.name} onChange={(e) => setTask({"name": e.target.value, "description": "This is a test description."})} />
+            <div className="relative mt-10 rounded-md flex flex-col items-center justify-center">
+                <input type="text" name="task" id="task" className="font-bold mb-5 mr-3 block w-1/2 rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Write task name here..." value={task.name} onChange={(e) => setTask({"name": e.target.value, "description": task.description})} />
+                <textarea id="description" name="description" className="mb-5 mr-3 block w-1/2 rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Write task description here..." value={task.description} onChange={(e) => setTask({"name": task.name, "description": e.target.value})} />
                 <button type="button" onClick={addTodo} className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                     <CheckIcon aria-hidden="true" className="h-5 w-5 text-white" />
                     Add To-Do
-                </button>            </div>
+                </button>            
+            </div>
             <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
                 <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
                 {todos.map((todo) => (
