@@ -3,12 +3,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 
-type Todo = {
-  _id: string;
-  name: string;
-  description: string;
-  completed: boolean;
-};  
 
 export default function TodoList() {
 
@@ -20,7 +14,7 @@ export default function TodoList() {
         name: { required: "Name is required" }
     };
 
-    const [todos, setTodos] = useState<Todo[]>([]);
+    const [todos, setTodos] = useState([]);
 
     const [task, setTask] = useState({
         name: '',
