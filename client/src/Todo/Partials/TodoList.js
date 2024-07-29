@@ -50,8 +50,8 @@ export default function TodoList() {
     return (
         <div>
             <form className="relative mt-10 rounded-md flex flex-col items-center justify-center" onSubmit={handleSubmit(onSubmit, onErrors)}>
-                <input {...register('name', validation.name)} className="font-bold mr-3 block w-1/2 rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Write task name here..." value={task.name} onChange={(e) => setTask({"name": e.target.value, "description": task.description})} />
-                <small className="mt-2 text-red-600">
+                <input {...register('name', validation.name)} className={`font-bold mr-3 block w-1/2 rounded-md border-0 py-1.5 pl-7 pr-20 ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 focus:ring-indigo-600 ring-${errors.name ? 'red' : 'gray'}-300`} placeholder="Write task name here..." value={task.name} onChange={(e) => setTask({"name": e.target.value, "description": task.description})} />
+                <small className="mt-2 text-red-600 italic">
                     {errors?.name && `${errors?.name?.message}`}
                 </small>
                 <textarea {...register('description')} className="my-5 mr-3 block w-1/2 rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Write task description here..." value={task.description} onChange={(e) => setTask({"name": task.name, "description": e.target.value})} />
