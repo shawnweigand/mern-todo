@@ -9,7 +9,7 @@ services:
     networks:
       - portfolio-network
     volumes:
-      - client-volume:/usr/src/app/src
+      - client-volume:/usr/src/app
   server:
     container_name: server
     build: server
@@ -18,7 +18,7 @@ services:
     networks:
       - portfolio-network
     volumes:
-      - server-volume:/usr/src/app/src
+      - server-volume:/usr/src/app
   mongodb:
     container_name: mongodb
     image: mongodb/mongodb-community-server:6.0-ubi8
@@ -36,11 +36,11 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: ./client/src
+      device: ./client
       o: bind
   server-volume:
     driver: local
     driver_opts:
       type: none
-      device: ./server/src
+      device: ./server
       o: bind
