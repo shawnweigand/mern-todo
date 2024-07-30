@@ -7,7 +7,7 @@ services:
     ports:
       - "3000:3000"
     networks:
-      - portfolio-network
+      - todo-network
     volumes:
       - client-volume:/usr/src/app
   server:
@@ -16,7 +16,7 @@ services:
     ports:
       - "5000:5000"
     networks:
-      - portfolio-network
+      - todo-network
     volumes:
       - server-volume:/usr/src/app
   mongodb:
@@ -25,10 +25,10 @@ services:
     ports:
       - "27017:27017"
     networks:
-      - portfolio-network
+      - todo-network
 
 networks:
-  portfolio-network:
+  todo-network:
     driver: bridge
 
 volumes:
