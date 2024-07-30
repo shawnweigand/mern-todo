@@ -67,7 +67,7 @@ export default function TodoList() {
     return (
         <div>
             <form className="relative mt-10 rounded-md flex flex-col items-center justify-center" onSubmit={handleSubmit(onSubmit, onErrors)}>
-                <input {...register('name', validation.name)} className={`font-bold mr-3 block w-1/2 rounded-md border-0 py-1.5 pl-7 pr-20 ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 focus:ring-indigo-600 ring-${errors.name ? 'red' : 'gray'}-300`} placeholder="Write task name here..." value={task.name} onChange={(e) => setTask({"name": e.target.value, "description": task.description, "completed": task.completed})} />
+                <input {...register('name', validation.name)} className={`font-bold mr-3 block w-1/2 rounded-md border-0 py-1.5 pl-7 pr-20 ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 focus:ring-indigo-600 ring-gray-300`} placeholder="Write task name here..." value={task.name} onChange={(e) => setTask({"name": e.target.value, "description": task.description, "completed": task.completed})} />
                 <small className="mt-2 text-red-600 italic">
                     {errors?.name && `${errors?.name?.message}`}
                 </small>
