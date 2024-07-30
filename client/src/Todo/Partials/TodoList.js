@@ -18,14 +18,21 @@ export default function TodoList() {
 
     const [task, setTask] = useState({
         name: '',
-        description: ''
+        description: '',
+        completed: false,
     });
+
+    const getTodos = async () => {
+        axios.get('http://localhost:5000/todos')
+        .then(response => setTodos(response.data))
+        .catch(error => console.error(error));
+    }
 
     const addTodo = async () => {
         try {
           const response = await axios.post('http://localhost:5000/todos', { task });
           setTodos([...todos, response.data]);
-          setTask({name: '', description: ''});
+          setTask({name: '', description: '', completed: false});
         } catch (error) {
           console.error(error);
         }
@@ -40,21 +47,31 @@ export default function TodoList() {
         }
     };
 
+    const completeTodo = async (todo, e) => {
+        try {
+            const response = await axios.put(`http://localhost:5000/todos/${todo._id}`, {
+                "name": todo.name,
+                "description": todo.description,
+                "completed": !todo.completed
+            });
+            getTodos();
+          } catch (error) {
+            console.error(error);
+          }
+    };
+
     useEffect(() => {
-        // Fetch data from the Express server
-        axios.get('http://localhost:5000/todos')
-          .then(response => setTodos(response.data))
-          .catch(error => console.error(error));
+        getTodos();
     }, []);
 
     return (
         <div>
             <form className="relative mt-10 rounded-md flex flex-col items-center justify-center" onSubmit={handleSubmit(onSubmit, onErrors)}>
-                <input {...register('name', validation.name)} className={`font-bold mr-3 block w-1/2 rounded-md border-0 py-1.5 pl-7 pr-20 ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 focus:ring-indigo-600 ring-${errors.name ? 'red' : 'gray'}-300`} placeholder="Write task name here..." value={task.name} onChange={(e) => setTask({"name": e.target.value, "description": task.description})} />
+                <input {...register('name', validation.name)} className={`font-bold mr-3 block w-1/2 rounded-md border-0 py-1.5 pl-7 pr-20 ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 focus:ring-indigo-600 ring-${errors.name ? 'red' : 'gray'}-300`} placeholder="Write task name here..." value={task.name} onChange={(e) => setTask({"name": e.target.value, "description": task.description, "completed": task.completed})} />
                 <small className="mt-2 text-red-600 italic">
                     {errors?.name && `${errors?.name?.message}`}
                 </small>
-                <textarea {...register('description')} className="my-5 mr-3 block w-1/2 rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Write task description here..." value={task.description} onChange={(e) => setTask({"name": task.name, "description": e.target.value})} />
+                <textarea {...register('description')} className="my-5 mr-3 block w-1/2 rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Write task description here..." value={task.description} onChange={(e) => setTask({"name": task.name, "description": e.target.value, "completed": task.completed})} />
                 <button className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                     <CheckIcon aria-hidden="true" className="h-5 w-5 text-white" />
                     Add To-Do
@@ -65,9 +82,9 @@ export default function TodoList() {
                 {todos.map((todo) => (
                     <div key={todo._id} className="relative pl-16">
                         <dt className="text-base font-semibold leading-7 text-gray-900">
-                            <div className="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600">
-                            <CheckIcon aria-hidden="true" className="h-6 w-6 text-white" />
-                            </div>
+                            <button onClick={(e) => completeTodo(todo)} className="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600">
+                                {todo.completed && <CheckIcon aria-hidden="true" className="h-6 w-6 text-white" />}
+                            </button>
                             {todo.name}
                         </dt>
                         <dd className="mt-2 text-base leading-7 text-gray-600">{todo.description}</dd>

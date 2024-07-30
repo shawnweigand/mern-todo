@@ -10,7 +10,6 @@ router.get('/', async (req, res) => {
 
 // Create a new todo
 router.post('/', async (req, res) => {
-    console.log(req.body.task);
     const newTodo = new Todo(req.body.task);
     await newTodo.save();
     res.json(newTodo);
