@@ -6,6 +6,8 @@ import { useForm } from 'react-hook-form';
 
 export default function TodoList() {
 
+    const appUrl = process.env.REACT_APP_URL;
+
     const { register, handleSubmit, formState: {errors} } = useForm();
     const onSubmit = data => addTodo();
     const onErrors = data => console.error(errors);
@@ -23,14 +25,14 @@ export default function TodoList() {
     });
 
     const getTodos = async () => {
-        axios.get('http://localhost:5000/todos')
+        axios.get(`${appUrl}:5000/todos`)
         .then(response => setTodos(response.data))
         .catch(error => console.error(error));
     }
 
     const addTodo = async () => {
         try {
-          const response = await axios.post('http://localhost:5000/todos', { task });
+          const response = await axios.post(`${appUrl}:5000/todos`, { task });
           setTodos([...todos, response.data]);
           setTask({name: '', description: '', completed: false});
         } catch (error) {
@@ -40,7 +42,7 @@ export default function TodoList() {
 
     const removeTodo = async (id, e) => {
         try {
-          const response = await axios.delete(`http://localhost:5000/todos/${id}`);
+          const response = await axios.delete(`${appUrl}:5000/todos/${id}`);
           setTodos(todos.filter(todo => todo._id !== id));
         } catch (error) {
           console.error(error);
@@ -49,7 +51,7 @@ export default function TodoList() {
 
     const completeTodo = async (todo, e) => {
         try {
-            const response = await axios.put(`http://localhost:5000/todos/${todo._id}`, {
+            const response = await axios.put(`${appUrl}:5000/todos/${todo._id}`, {
                 "name": todo.name,
                 "description": todo.description,
                 "completed": !todo.completed

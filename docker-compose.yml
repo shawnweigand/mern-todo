@@ -10,6 +10,8 @@ services:
       - todo-network
     volumes:
       - client-volume:/usr/src/app
+    environment:
+      REACT_APP_URL: http://localhost
   server:
     container_name: server
     build: server
