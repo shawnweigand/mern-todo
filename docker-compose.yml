@@ -1,46 +1,48 @@
 version: '3.8'
 
 services:
-  # client:
-  #   container_name: client
-  #   build: client
-  #   ports:
-  #     - "3000:3000"
-  #   networks:
-  #     - portfolio-network
-  #   volumes:
-  #     - client-volume:/usr/src/app/src
-  # server:
-  #   container_name: server
-  #   build: server
-  #   ports:
-  #     - "5000:5000"
-  #   networks:
-  #     - portfolio-network
-  #   volumes:
-  #     - server-volume:/usr/src/app/src
+  client:
+    container_name: client
+    build: client
+    ports:
+      - "3000:3000"
+    networks:
+      - todo-network
+    volumes:
+      - client-volume:/usr/src/app
+    environment:
+      REACT_APP_URL: http://localhost
+  server:
+    container_name: server
+    build: server
+    ports:
+      - "5000:5000"
+    networks:
+      - todo-network
+    volumes:
+      - server-volume:/usr/src/app
   mongodb:
     container_name: mongodb
     image: mongodb/mongodb-community-server:6.0-ubi8
     ports:
       - "27017:27017"
-    # networks:
-    #   - portfolio-network
+    networks:
+      - todo-network
 
-# networks:
-#   portfolio-network:
-#     driver: bridge
+networks:
+  todo-network:
+    driver: bridge
 
-# volumes:
-#   client-volume:
-#     driver: local
-#     driver_opts:
-#       type: none
-#       device: ./client/src
-#       o: bind
-#   server-volume:
-#     driver: local
-#     driver_opts:
-#       type: none
-#       device: ./server/src
-#       o: bind
+volumes:
+  client-volume:
+    driver: local
+    driver_opts:
+      type: none
+      device: ./client
+      o: bind
+  server-volume:
+    driver: local
+    driver_opts:
+      type: none
+      device: ./server
+      o: bind
