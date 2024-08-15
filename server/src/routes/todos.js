@@ -1,6 +1,7 @@
-const express = require('express');
+import { express } from '../server.js';
+import { Todo } from '../database/Todo.js';
+
 const router = express.Router();
-const { Todo } = require('../database/Todo');
 
 router.get('/', async (req, res) => {
     const todos = await Todo.find();
@@ -9,7 +10,7 @@ router.get('/', async (req, res) => {
 
 // Create a new todo
 router.post('/', async (req, res) => {
-    const newTodo = new Todo(req.body);
+    const newTodo = new Todo(req.body.task);
     await newTodo.save();
     res.json(newTodo);
 });
@@ -20,8 +21,8 @@ router.put('/:id', async (req, res) => {
 });
 // Delete a todo
 router.delete('/:id', async (req, res) => {
-    await Todo.findByIdAndRemove(req.params.id);
+    await Todo.findByIdAndDelete(req.params.id);
     res.json({ message: 'Todo deleted successfully' });
 });
 
-module.exports = router;
+export { router };
